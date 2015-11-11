@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="myApp">
+    <head>
+        <meta charset="UTF-8">
+        <title>Title</title>
+
+        <!--STYLES-->
+        <link rel="stylesheet" href="/vendors/bootstrap.min.css">
+        <link rel="stylesheet" href="/assets/styles/style.css">
+
+        <!--SCRIPTS-->
+        <script type="text/javascript" src="/vendors/angular.min.js"></script>
+        <script type="text/javascript" src="/assets/scripts/app.min.js"></script>
+    </head>
+    <body>
+        <div class="container">
+            <h1>Is this thing on?</h1>
+
+            <div ng-controller="WelcomeController">
+                <button class="btn btn-info" ng-click="order('name', false)">Sort by Name</button>
+                <button class="btn btn-info" ng-click="order('location', false)">Sort by Location</button>
+                <button class="btn btn-info" ng-click="order('number', false)">Sort by Number</button>
+
+                <div ng-repeat="person in peopleArray">
+                    <people-info info="person"></people-info>
+                </div>
+
+            </div>
+        </div>
+    </body>
+</html>
