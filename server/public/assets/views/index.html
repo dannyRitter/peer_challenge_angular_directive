@@ -1,31 +1,57 @@
 <!DOCTYPE html>
 <html lang="en" ng-app="myApp">
-    <head>
-        <meta charset="UTF-8">
-        <title>Title</title>
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
 
-        <!--STYLES-->
-        <link rel="stylesheet" href="/vendors/bootstrap.min.css">
-        <link rel="stylesheet" href="/assets/styles/style.css">
+    <!--STYLES-->
+    <link rel="stylesheet" href="/vendors/bootstrap.min.css">
+    <link rel="stylesheet" href="/assets/styles/style.css">
 
-        <!--SCRIPTS-->
-        <script type="text/javascript" src="/vendors/angular.min.js"></script>
-        <script type="text/javascript" src="/assets/scripts/app.min.js"></script>
-    </head>
-    <body>
-        <div class="container">
-            <h1>Is this thing on?</h1>
+    <!--SCRIPTS-->
+    <script type="text/javascript" src="/vendors/angular.min.js"></script>
+    <script type="text/javascript" src="/assets/scripts/app.min.js"></script>
+</head>
+<body>
+<div class="container">
+    <h1>Top Secret Database</h1>
 
-            <div ng-controller="WelcomeController">
-                <button class="btn btn-info" ng-click="order('name', false)">Sort by Name</button>
-                <button class="btn btn-info" ng-click="order('location', false)">Sort by Location</button>
-                <button class="btn btn-info" ng-click="order('number', false)">Sort by Number</button>
+    <div ng-controller="WelcomeController">
 
-                <div ng-repeat="person in peopleArray">
-                    <people-info info="person"></people-info>
-                </div>
-
+        <form name="userForm" ng-submit="submitForm()" novalidate>
+            <div class="form-group" ng-class="{ 'has-error' : userForm.inputName.$invalid && !userForm.inputName.$pristine }">
+                <input ng-model="info.name" type="text" id="inputName" name="inputName" class="form-control" placeholder="Enter name" required>
+                <p ng-show="userForm.inputName.$invalid && !userForm.inputName.$pristine" class="help-block">Uh, name please?</p>
             </div>
+
+            <div class="form-group" ng-class="{ 'has-error' : userForm.inputLocation.$invalid && !userForm.inputLocation.$pristine }">
+                <input ng-model="info.location" type="text" id="inputLocation" name="inputLocation" class="form-control" placeholder="Enter your Location" ng-minlength="3" ng-maxlength="15" required>
+                <p ng-show="userForm.inputLocation.$error.minlength" class="help-block">Too damn short - keep typing!</p>
+                <p ng-show="userForm.inputLocation.$error.maxlength" class="help-block">Too damn long - shorten that up!</p>
+            </div>
+
+            <div class="form-group" ng-class="{ 'has-error' : userForm.inputNumber.$invalid && !userForm.inputNumber.$pristine }">
+                <input ng-model="info.number" type="text" id="inputNumber" name="inputNumber" class="form-control" placeholder="Enter fav Number" required>
+                <p ng-show="userForm.inputNumber.$invalid && !userForm.inputNumber.$pristine" class="help-block">Yup, really need a number here</p>
+            </div>
+
+
+            <div class="submitButton">
+                <button type="submit" ng-click="clickSubmit(info)" id="submitBtn" class="btn btn-success" ng-disabled="userForm.$invalid">Submit</button>
+            </div>
+        </form>
+
+        <div class="sortButtons">
+            <button class="btn btn-info" ng-click="order('name', false)">Sort by Name</button>
+            <button class="btn btn-warning" ng-click="order('location', false)">Sort by Location</button>
+            <button class="btn btn-primary" ng-click="order('number', false)">Sort by Number</button>
         </div>
-    </body>
-</html>
+
+        <div ng-repeat="person in peopleArray">
+            <people-info info="person" action="deletePerson({param: person._id})"></people-info>
+        </div>
+
+    </div>
+</div>
+</body>
+</html

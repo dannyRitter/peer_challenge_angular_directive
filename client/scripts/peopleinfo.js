@@ -6,7 +6,8 @@ myApp.directive('peopleInfo',
         return {
             restrict: "E",
             scope: {
-                info: "="
+                info: "=",
+                action: '&'
             },
             templateUrl: "assets/views/peopleinfo.html"
         }

@@ -26,6 +26,27 @@ app.get("/data", function(req,res){
 });
 
 
+app.post('/data', function(req,res){
+    var person = new Person({
+        "name" : req.body.name,
+        "location" : req.body.location,
+        "number" : req.body.number
+    });
+
+    person.save(function(err, data){
+        if(err) console.log(err);
+        res.send(data);
+    });
+
+});
+
+app.delete('/data', function(req, res){
+    Person.findByIdAndRemove({"_id" : req.query.id}, function(err, data){
+        if(err) console.log(err);
+        res.send(data);
+    });
+});
+
 app.get("/*", function(req,res, next){
     var file = req.params[0] || "/assets/views/index.html";
     res.sendFile(path.join(__dirname, "./public/", file));

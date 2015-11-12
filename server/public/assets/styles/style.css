@@ -1,3 +1,15 @@
-h1 {
-    color: red;
+.submitButton {
+    margin-bottom: 20px;
+}
+
+.sortButtons {
+    margin-bottom: 20px;
+}
+
+.form-group {
+    width: 35%;
+}
+
+.people-container:nth-child(even){
+    background-color: lightgray;
 }
